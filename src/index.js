@@ -37,8 +37,30 @@ const MORSE_TABLE = {
     '-----':  '0',
 };
 
+
+const obj = {
+    '00': '',
+    '10': '.',
+    '11': '-',    
+}
+
 function decode(expr) {
-    // write your solution here
+    let result = ''
+    for (let i=0; i < expr.length; i += 10) {
+        const firstSlice = expr.slice(i, i+10)
+        if (firstSlice === '**********') {
+            result += ' '
+        } else {
+           let subresult = ''
+                for (let j=0; j < firstSlice.length; j +=2) {                
+                    const secondSlice = firstSlice.slice(j, j+2)
+                    const twoSubols = obj[secondSlice] 
+                    subresult += twoSubols
+                }
+                result += MORSE_TABLE[subresult]
+            }     
+    }
+    return result
 }
 
 module.exports = {
